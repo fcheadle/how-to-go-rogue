@@ -23,12 +23,19 @@ We'd create this region like so:
 var region = new Region(
     name: "rhombus",
     northWest: (1,1),
-    northEast: (7,2)
+    northEast: (7,2),
     southEast: (9,9),
     southWest: (3,7));
+
+//functionally identical to
+var region = new Region("rhombus",(1,1),(7,2),(9,9),(3,7));
 ```
 
-I recommend using the parameter names when invoking to help with readability. You can use the static methods to create Regions easily from Rectangles:
+I recommend using the parameter names when invoking to help with readability.
+
+Regions work by keeping track of the their corners (four of them), and using those to generate collections of Inner and Outer Points. The Outer Points are the outer boundary of the Region, and the Inner Points are all the points that the region contains. Regions also have a collection of Points called `Connections` which can be used in terrain generation algorithms to make a path between two rooms.
+
+You can use the static methods to create Regions easily from Rectangles:
 
 `var region = Region.FromRectangle(rectangle);`
 
@@ -36,4 +43,3 @@ Once you have a region of any flavor, you can rotate it an arbitrary number of d
 
 `region = region.Rotate(22.5);`
 
-Regions work by keeping track of the their corners (four of them), and using those to generate a collection of Inner and Outer Points. The Outer Points are the outer boundary of the Region, and the Inner Points are all the points that the region contains. Regions also have Connections and can intelligently place new connections between two regions with overlapping points.
