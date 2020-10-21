@@ -43,3 +43,20 @@ Once you have a region of any flavor, you can rotate it an arbitrary number of d
 
 `region = region.Rotate(22.5);`
 
+Regions keep a collection of `SubRegions`. Any transformation performed on the parent region also transforms all subregions. You would use this in cases where you _inherit from_ Region and have functionality in this new class to generate more detailed regions.
+
+```
+class House : Region
+{
+    public House(Point northWest, Point northEast, Point SouthWest, Point southEast) : base(northWest, northEast, southEast, southWest)
+    {
+    	GenerateRooms(); //adds subregions to regions
+    }
+}
+
+//elsewhere in the code...
+
+var house = new House((0,0), (40,0), (40,40), (0,40)).Rotate(30, (80,80));
+//ever room in the house also rotates with the house
+```
+
